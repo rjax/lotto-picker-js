@@ -1,0 +1,8 @@
+{
+    "label": "Open in Edge",
+    "type": "process",
+    "command": "microsoft-edge:",
+    "args": [
+        "file://${fileDirname}/${file}"
+    ]
+}
