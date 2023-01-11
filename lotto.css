@@ -17,7 +17,10 @@ p.rising {
 
 }
 
-p.picks{
+
+p.picks {
+
+    visibility: visible;
     font-size: x-large;
 }
 
@@ -34,7 +37,7 @@ div.circle:hover {
     filter: contrast(200%);
 }
 
-div.circle.fadeout{
+div.circle.fadeout {
     opacity: 0;
     transition-property: "opacity";
     transition-duration: 3s;
@@ -46,10 +49,102 @@ div.rising {
     animation-timing-function: linear;
 }
 
-div.container {
+div.main {
     height: 100vh;
     width: 100vw;
     overflow: hidden;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+div.picker {
+    flex-grow: 1;
+    height: 100%;
+    overflow: visible;
+    position: relative;
+}
+
+div.cards {
+    width: 450px;
+    height: 100%;
+    padding: 2em;
+    flex-grow: 0;
+    border-left: 1px;
+    border-right: 1px;
+    position: relative;
+    border-left-style: solid;
+    border-right-style: solid;
+    overflow-y: scroll;
+}
+
+.btn {
+    border-radius: 5px;
+    background-color: #a0d3fa;
+    border: 1px solid #797c7d;
+}
+
+.btn:hover {
+    filter: contrast(120%);
+
+}
+
+#pickNumbers {
+    font-size: x-large;
+
+}
+
+div.card-container {
+    justify-content: stretch;
+    display: flex;
+    gap: 3px;
+    margin-bottom: 25px;
+
+}
+
+div.grid-container {
+    display: grid;
+    row-gap: 3px;
+    column-gap: 3px;
+}
+
+div.grid-element {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    border-radius: 15px;
+    background-color: #f1f1f1;
+    border: 1px solid gray;
+}
+
+span.grid-element {
+    display: flex;
+    width: 100%;
+    /* color: white; */
+    align-items: center;
+    justify-content: center;
+}
+
+
+@media print {
+    * {
+        visibility: hidden;
+    }
+
+    div.main {
+        display: inline;
+    }
+
+    div.picker {
+        display: none;
+    }
+
+    div.cards {
+        display: inline;
+    }
+
+    p.picks {
+        font-size: x-large;
+    }
 }
 
 @keyframes slidein {
@@ -63,4 +158,3 @@ div.container {
         top: calc(-10vh);
     }
 }
-

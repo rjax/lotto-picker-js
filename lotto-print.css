@@ -1,0 +1,38 @@
+/* @media screen and (max-width:1500px) { */
+@media print {
+    * {
+        visibility: hidden;
+    }
+
+    div.main {
+        display: inline;
+    }
+
+    div.picker {
+        display: none;
+    }
+
+    /* div.cards {
+        display: block;
+    } */
+
+    div.cards div,
+    span {
+        visibility: visible;
+    }
+
+    /* div.card-container {
+        display: flex;
+    } */
+
+    /* div.grid-container {
+        display: grid;
+    } */
+    /* div.grid-element {
+        display: flex;
+    } */
+
+    /* p.picks {
+        font-size: x-large;
+    } */
+}

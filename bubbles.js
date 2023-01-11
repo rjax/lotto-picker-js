@@ -1,14 +1,14 @@
-import { subscribe } from "./pubsub.js";
+import { publish, subscribe } from "./pubsub.js";
 
-const colors = ['#ed1b18', '#e38010', '#f0de16', '#a4f016', '#18d911', '#11d9c5', '#116bd9', '#1411d9', '#7f11d9', '#d911aa', '#d91139'];
+const backgroundColors = ['#ed1b18', '#e38010', '#f0de16', '#a4f016', '#18d911', '#11d9c5', '#116bd9', '#1411d9', '#7f11d9', '#d911aa', '#d91139'];
 
 function getBackgroundColor() {
-    return colors[Math.floor(Math.random() * colors.length)]
+    return backgroundColors[Math.floor(Math.random() * backgroundColors.length)]
 }
 
 function getLeftCoordinate() {
-    const max = 80;
-    const min = 20;
+    const max = 100;
+    const min = 0;
     return `${Math.floor(Math.random() * (max - min + 1) + min)}%`;
 }
 
@@ -23,10 +23,12 @@ function getAnimationProperties() {
 function getBubbleStyle() {
     const max = 80;
     const min = 20;
+    const bgc = getBackgroundColor();
     return {
         left: getLeftCoordinate(),
         ...getAnimationProperties(),
-        backgroundColor: getBackgroundColor(),
+        backgroundColor: bgc,
+        color: `#${("000000" + (0xffffff ^ bgc.replace("#", "0x").toString(16)).toString(16)).slice(-6)}`
     };
 }
 
@@ -51,8 +53,9 @@ function removeBubble(e) {
 }
 
 function popBubble(e, picker) {
-    picker.pick();
-
+    const value = picker.pick();
+    if (value)
+        publish("picked", { value, backgroundColor: e.target.style.backgroundColor, color: e.target.style.color })
 
     e.target.remove();
 }

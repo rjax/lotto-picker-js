@@ -27,7 +27,10 @@ export function numberPicker(numberRange, pickCount) {
                 if (numbers.length === pickCount)
                     publish("done", data);
 
+                return values[0];
+
             }
+            return undefined;
         },
         numbers
     };

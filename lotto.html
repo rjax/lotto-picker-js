@@ -5,37 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="lotto.css" rel="stylesheet">
+    <link href="lotto.css" rel="stylesheet" media="all">
+    <!-- <link href="lotto-print.css" rel="stylesheet" media="screen and (max-width:1500px)"> -->
+    <link href="lotto-print.css" rel="stylesheet" media="print">
 </head>
 
 <body>
-    <div class="container">
-        <p class="picks"></p>
-        <script type="module">
-            import { start } from "./bubbles.js";
-            import { numberPicker } from "./picker.js";
-            import { subscribe, unsubscribe } from "./pubsub.js";
-
-            const container = document.querySelector("div.container");
-
-            start(container, numberPicker([1, 37], 6))
-                .then((numbers) => {
-                    unsubscribe("picked", setPickText);
-                    return start(container, numberPicker([1, 7], 1));
-                }).then((numbers) => {
-                    const element = document.querySelector("p.picks");
-                    element.textContent += ` | ${numbers[0]}`;
-                });
-
-
-            subscribe("picked", setPickText);
-
-            function setPickText(data) {
-                const element = document.querySelector("p.picks");
-                element.textContent = `Picks: ${data.numbers.sort((a, b) => { return a - b }).join(", ")}`;
-            }
-        </script>
+    <div class="main">
+        <div class="cards">
+            <button class="btn" id="pickNumbers">Pick Numbers</button>
+        </div>
+        <div class="picker"></div>
     </div>
+    <script type="module">
+        import { pickNumbers, createCard, createCard2 } from "./lotto.js";
+
+        const pickerContainer = document.querySelector("div.picker");
+        const button = document.getElementById("pickNumbers")
+
+        button.addEventListener("click", event => {
+            const card = createCard2()
+            // const card = createCard();
+            // button.before(grid);
+            button.before(card);
+            event.target.disabled = true;
+            pickNumbers(pickerContainer, card)
+                .then(() => {
+                    event.target.disabled = false;
+                });
+        });
+
+    </script>
 </body>
 
 </html>
